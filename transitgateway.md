@@ -89,7 +89,7 @@ This is the single concept that unlocks everything else on this sheet.
 3. **Associate** each VPC attachment with exactly the one route table for its domain.
 4. **Propagate selectively** — only push a VPC's CIDR into the table(s) of attachments that should legitimately reach it.
 5. **Absence of a route = the isolation.** TGW route tables are default-deny: no route in, no path out. You don't "block" Dev from Prod — you just never let Prod's table learn about Dev.
-6. **Blackhole routes for explicit deny** — a static route to `blackhole` for a hard, deliberate drop (decommissioned ranges, defense-in-depth) rather than relying on "route never existed."
+6. **Blackhole routes for explicit deny** — a static route to `blackhole` for a hard, deliberate drop (decommissioned ranges, defense-in-depth) rather than relying on "route never existed." E.g. `destination_cidr_block = "10.5.5.0/24"`, `blackhole = true` — no `transit_gateway_attachment_id` at all, since there's nowhere for the traffic to go on purpose. Routes are always CIDR-based, so a single host needs a `/32`.
 
 ## 6. Three isolation patterns you'll be asked to describe
 
